@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès au logiciel | WDF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #333333;
+            --accent: #555555;
+            --light: #f8f8f8;
+            --dark: #222222;
+            --text: #333333;
+            --success: #2e7d32;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9f9f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text);
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .logo-container {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            height: auto;
+            max-width: 180px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            opacity: 0.8;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin: 60px 0 40px;
+        }
+        
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            color: var(--text);
+            opacity: 0.9;
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .status-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+        }
+        
+        .status-card.loading {
+            border-left-color: var(--primary);
+        }
+        
+        .status-card.success {
+            border-left-color: var(--success);
+        }
+        
+        .status-card.error {
+            border-left-color: #d32f2f;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.6s ease;
+        }
+        
+        .countdown {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 15px 0;
+            display: inline-block;
+            min-width: 40px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+                border-radius: 10px;
+                margin: 50px 0 60px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .logo-container {
+                max-width: 150px;
+                top: 20px;
+                left: 20px;
+            }
+            
+            .copyright {
+                left: 20px;
+                bottom: 15px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="https://mathieumac.github.io/WDF_complement/Logo_WDF_80.png" alt="WDF Logo">
+    </div>
+    
+    <div class="copyright" id="copyright"></div>
+    
+    <div class="container animate__animated animate__fadeIn">
+        <h1 class="animate__animated animate__fadeInDown">Accès au logiciel</h1>
+        
+        <div id="initialState">
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Cliquez sur « Commencer » pour accéder au logiciel. L'URL vers laquelle vous serez redirigé(e) est unique : veillez à la sauvegarder dans votre navigateur afin de pouvoir reprendre votre travail plus tard.</p>
+            <button id="startButton" class="btn animate__animated animate__fadeInUp animate__delay-2s">Commencer</button>
+        </div>
+        
+        <div id="progressState" class="hidden">
+            <div id="statusMessage" class="status-card loading">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <p id="statusText">Connexion au service en cours...</p>
+            </div>
+            
+            <div class="animate__animated animate__fadeIn" id="successContent" style="display: none;">
+                <div class="countdown" id="countdown">5</div>
+                <p>Vous allez être redirigé(e) automatiquement...</p>
+            </div>
+        </div>
+        
+        <button id="retryButton" class="btn hidden">Réessayer</button>
+    </div>
+
+    <script>
+        // Configuration
+        const FLOW_BASE_URL = 'https://default7da614ba35f24e16b0e5c52d31dccb.e8.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/eafe180a97b941378ddf4f3d1ed16e22/triggers/manual/paths/invoke';
+        const FLOW_PARAMS = {
+            'api-version': '2024-10-01',
+            'sp': '/triggers/manual/run',
+            'sv': '1.0',
+            'sig': 'qz5ODslgbk7HNsvyITLQbJNlLiyaVjNslKBxgbe99jM'
+        };
+
+        // Éléments du DOM
+        const startButton = document.getElementById('startButton');
+        const retryButton = document.getElementById('retryButton');
+        const initialState = document.getElementById('initialState');
+        const progressState = document.getElementById('progressState');
+        const statusText = document.getElementById('statusText');
+        const statusCard = document.getElementById('statusMessage');
+        const progressBar = document.getElementById('progressBar');
+        const countdownElement = document.getElementById('countdown');
+        const successContent = document.getElementById('successContent');
+        const copyrightElement = document.getElementById('copyright');
+
+        // Mettre à jour le copyright avec l'année actuelle
+        function updateCopyright() {
+            const currentYear = new Date().getFullYear();
+            copyrightElement.textContent = `© ${currentYear} WALL-DE-FIX.`;
+        }
+
+        // Construire l'URL du flux
+        function buildFlowUrl() {
+            const url = new URL(FLOW_BASE_URL);
+            Object.entries(FLOW_PARAMS).forEach(([key, value]) => {
+                url.searchParams.append(key, value);
+            });
+            return url.toString();
+        }
+
+        // Mettre à jour la progression
+        function updateProgress(percent) {
+            progressBar.style.width = `${percent}%`;
+        }
+
+        // Mettre à jour le statut
+        function updateStatus(message, type) {
+            statusText.textContent = message;
+            statusCard.className = `status-card ${type} animate__animated animate__fadeIn`;
+        }
+
+        // Compte à rebours
+        function startCountdown(seconds, callback) {
+            countdownElement.textContent = seconds;
+            const interval = setInterval(() => {
+                seconds--;
+                countdownElement.textContent = seconds;
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    callback();
+                }
+            }, 1000);
+        }
+
+        // Basculer entre les états
+        function toggleUIState(showProgress) {
+            if (showProgress) {
+                initialState.classList.add('hidden');
+                progressState.classList.remove('hidden');
+                retryButton.classList.add('hidden');
+                successContent.style.display = 'none';
+            } else {
+                initialState.classList.remove('hidden');
+                progressState.classList.add('hidden');
+            }
+        }
+
+        // Déclencher le flux
+        async function triggerFlow() {
+            toggleUIState(true);
+            updateStatus('Connexion au service en cours...', 'loading');
+            updateProgress(20);
+            
+            try {
+                const flowUrl = buildFlowUrl();
+                updateStatus('Connexion en cours...', 'loading');
+                updateProgress(40);
+                
+                const response = await fetch(flowUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                updateProgress(70);
+                
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (!result.lien) {
+                    throw new Error('Le lien de partage est absent de la réponse');
+                }
+                
+                updateProgress(100);
+                updateStatus('Connexion établie avec succès !', 'success');
+                successContent.style.display = 'block';
+                
+                startCountdown(5, () => {
+                    window.location.href = result.lien;
+                });
+                
+            } catch (error) {
+                updateProgress(100);
+                updateStatus(`Erreur: ${error.message}`, 'error');
+                retryButton.classList.remove('hidden');
+                console.error('Détails de l\'erreur:', error);
+            }
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCopyright();
+            startButton.addEventListener('click', triggerFlow);
+            retryButton.addEventListener('click', triggerFlow);
+        });
+    </script>
+</body>
+</html>
